@@ -1,7 +1,7 @@
 rails-asset-pipeline-hhjs-talk
 ==============================
 
-Die Slides von meinem Talk "Rails Asset Pipeline" fpr HH.js 03/2013
+Die Slides von meinem Talk "Rails Asset Pipeline" für HH.js 03/2013
 
 Rock Stars included ...
 
