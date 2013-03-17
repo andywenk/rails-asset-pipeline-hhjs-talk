@@ -1,0 +1,707 @@
+<!--
+Google IO 2012/2013 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="images/ruby_on_rails_128.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Um was geht's?</h2>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>Ruby on Rails > 3.1</li>
+        <li>JavaScript | CoffeeScript</li>
+        <li>CSS | SCSS | SASS</li>
+        <li>... und ...</li>
+        <li>das Ganze bitte jeweils in einer Datei kompiliert, geshreddert und komprimiert!</li>
+        <li><h3>Rails <b>Asset Pipeline</b> FTfW!</h3></li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Überblick</h2>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>1. JavaScript und CSS Assets</li>
+        <li>2. Konfiguration</li>
+        <li>3. Deployment ... sorry - next talk!</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <article class="flexbox vcenter">
+      <h1>1. JavaScript und CSS Assets</h1>
+    </article>
+  </slide>
+
+  <slide>
+    <article class="flexbox vcenter">
+      <h1>JavaScript and CSS is cool baby ...</h1>
+      <br>
+      <img src="/images/mike-ness.jpg" height="400px" /><br>
+      <span class="pic">(Mike Ness, Social Distorion)</span>
+    </article>
+  </slide>
+
+  <slide class="segue dark quote nobackground">
+    <h3 class="flexbox vcenter">
+      "The asset pipeline provides a framework to concatenate and minify or compress JavaScript
+      and CSS assets. It also adds the ability to write these assets in other languages such as
+      CoffeeScript, Sass and ERB." *
+    </h2>
+    <br>
+    <p class="smaller footnotes">
+      * <a href="http://guides.rubyonrails.org/asset_pipeline.html">http://guides.rubyonrails.org/asset_pipeline.html</a>
+    </p>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Asset Pipeline</h2>
+      <h3>Kurze Erklärung ...</h3>
+    </hgroup>
+    <article>
+      <ul>
+        <li>seit Rails 3.1 ist das gem <b>Sprockets [1]</b> über Action Pack integriert [2]</li>
+        <li>Asset Pipeline features (by default!):
+          <ul>
+            <li>preprocessing / concatenating</li>
+            <li>minifying / compressing</li>
+            <li>precompilation (Sass, CoffeeScript, ERB)</li>
+          </ul>
+        </li>
+
+      </ul>
+    </article>
+    <br>
+    <p class="smaller footnotes">
+      [1] <a href="https://github.com/sstephenson/sprockets">Sprockets</a>: Library um Assets wie JavaScript und CSS zu kompilieren und auszuliefern. Bietet preprocessing.
+      <br>
+      [2] <a href="https://github.com/rails/rails/tree/master/actionpack">Action Pack</a>: Framework in Rails um requests, routing usw. zu behandeln
+    </p>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Was braucht man dafür?</h2>
+      <h3>Übersicht über notwendige Komponenten</h3>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>Rails > 3.1</li>
+        <li>bißchen Konfiguration</li>
+        <li>fertig</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <article class="flexbox vcenter">
+      <h1>Well sounds easy ...</h1>
+      <br>
+      <img src="/images/backyard_babies.jpg" height="400px" /><br>
+      <span class="pic">(Dregen, Nicke, Backyard Babies)</span>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Beispiel Applikation</h2>
+      <h3>asset-pipeline-app</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="bash">
+$ rails new asset-pipeline-app
+  create  README.rdoc
+  create  Rakefile
+  create  config.ru
+  create  .gitignore
+  create  Gemfile
+  create  app
+  create  app/assets/images/rails.png
+  create  app/assets/javascripts/application.js
+  create  app/assets/stylesheets/application.css
+  create  app/controllers/application_controller.rb
+  create  app/helpers/application_helper.rb
+  ...
+      </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Struktur der Applikation (Auszug)</h2>
+      <h3>asset-pipeline-app</h3>
+    </hgroup>
+    <article class="smaller">
+      <pre class="prettyprint" data-lang="bash">
+├── app
+│   ├── assets
+│   │   ├── images
+│   │   │   └── rails.png
+│   │   ├── javascripts
+│   │   │   └── application.js
+│   │   └── stylesheets
+│   │       └── application.css
+│   ├── controllers
+│   │   └── application_controller.rb
+│   ├── helpers
+│   │   └── application_helper.rb
+│   ├── mailers
+│   ├── models
+│   └── views
+│       └── layouts
+│           └── application.html.erb
+├── config
+│   ├── application.rb
+...
+      </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Wo können Assets abgelegt werden?</h2>
+    </hgroup>
+    <article class="smaller">
+      <pre class="prettyprint" data-lang="bash">
+├── app
+│   ├── assets
+│   │   ├── images
+│   │   │   └── rails.png
+│   │   ├── javascripts
+│   │   │   └── application.js
+│   │   │   └── super_awesome_stuff.js
+│   │   └── stylesheets
+│   │       └── application.css
+
+├── lib
+│   ├── assets
+│   │   └── library_stuff.js
+│   └── tasks
+
+└── vendor
+    ├── assets
+    │   ├── javascripts
+    │   │   └── vendor_stuff.js
+    │   └── stylesheets
+      </pre>
+      <p class="smaller">Note: in Dateiamen keine '-' Zeichen sondern '_' nutzen um diese mit //= require inkludieren zu können!</p>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Start Controller bauen</h2>
+    </hgroup>
+    <article class="smaller">
+      <pre class="prettyprint" data-lang="bash">
+rails g controller start index
+  create  app/controllers/start_controller.rb
+   route  get "start/index"
+  invoke  erb
+  create    app/views/start
+  create    app/views/start/index.html.erb
+  ...
+  invoke  assets
+  invoke    coffee
+  create      app/assets/javascripts/start.js.coffee
+  invoke    scss
+  create      app/assets/stylesheets/start.css.scss
+      </pre>
+
+      <pre class="prettyprint" data-lang="bash">
+$ rm -f public/index.html
+      </pre>
+
+      <pre class="prettyprint" data-lang="ruby">
+# config/routes.rb
+get "start/index"
+root :to => "start#index"
+      </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>JavaScript in Start Controller</h2>
+    </hgroup>
+    <article>
+      <img src="images/start-controller-1.png" class="reflect" alt="Description" title="Description">
+    </article>
+  </slide>
+
+  <slide>
+    <article class="flexbox vcenter">
+      <h1>YAY it works ...</h1>
+      <br>
+      <img src="/images/ZAKK.jpg" height="400px" /><br>
+      <span class="pic">(Zakk Wylde, Black Label Society)</span>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Assets inkludieren (JavaScript)</h2>
+    </hgroup>
+    <article class="smaller">
+      <p>Konfiguration in app/assets/javascripts/application.js</p>
+      <pre class="prettyprint" data-lang="javascript">
+//= require jquery
+//= require jquery_ujs
+//= require_tree .
+//= require vendor_stuff
+//= require library_stuff
+//= require vendor_library
+      </pre>
+      <ul>
+        <li>vendor_library ist ein Ordner, der eine index.js beinhaltet. Diese ist das manifest für weiter Datei Einbindung:
+        <br>//= require_tree .
+        </li>
+        <li>Analog für CSS ... siehe später</li>
+      </ul>
+      <p></p>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Assets inkludieren - Asset Ordner Strukturen</h2>
+    </hgroup>
+    <article class="smaller">
+      <pre class="prettyprint" data-lang="bash">
+├── app
+│   ├── assets
+│   │   ├── javascripts
+│   │   │   ├── application.js
+│   │   │   ├── start.js.coffee
+│   │   │   └── super_awesome_stuff.js
+      </pre>
+      <pre class="prettyprint" data-lang="bash">
+├── lib
+│   ├── assets
+│   │   └── javascripts
+│   │       └── library_stuff.js
+      </pre>
+      <pre class="prettyprint" data-lang="bash">
+└── vendor
+    ├── assets
+    │   ├── javascripts
+    │   │   ├── vendor_library
+    │   │   │   ├── index.js
+    │   │   │   └── library_file_one.js
+    │   │   └── vendor_stuff.js
+      </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Alle JavaScripts in Start Controller</h2>
+    </hgroup>
+    <article>
+      <img src="images/start-controller-2.png" class="reflect" alt="Description" title="Description">
+    </article>
+  </slide>
+
+  <slide>
+    <article class="flexbox vcenter">
+      <h1>Yeah - that really rocks ...</h1>
+      <br>
+      <img src="/images/Danko-Jones.jpg" height="400px" /><br>
+      <span class="pic">(Danko Jones)</span>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Assets inkludieren (CSS | SCSS)</h2>
+    </hgroup>
+    <article class="smaller">
+      <p>Konfiguration in app/assets/stylesheest/application.css</p>
+      <pre class="prettyprint" data-lang="css">
+/*
+ *= require_self
+ *= require_tree .
+ */
+      </pre>
+      <ul>
+        <li>Funktionalität ist die Gleiche wie bei application.js</li>
+        <li>Es wird automatisch SCSS eingebunden</li>
+        <li>SASS Einbindung geht nicht ohne weiteres</li>
+      </ul>
+      <p></p>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Assets inkludieren (SASS) (ja das willst Du!)</h2>
+    </hgroup>
+    <article class="smaller">
+      <pre class="prettyprint" data-lang="bash">
+├── app
+│   ├── assets
+│   │   └── stylesheets
+│   │       ├── application.css.scss
+│   │       ├── awesome-simple.css.sass
+│   │       ├── start.css.scss
+│   │       └── vars.css.sass
+      </pre>
+      <pre class="prettyprint" data-lang="css">
+/* app/assets/stylesheest/application.scss
+ *
+ *= require_self
+ */
+ @import "vars";
+ @import "start";
+ @import "awesome-simple";
+      </pre>
+      <ul>
+        <li>application.css zu application.css.sccs umbenennen!</li>
+        <li>*= require_tree . entfernen!</li>
+        <li>No curly braces and semikolon in CSS FTW!</li>
+      </ul>
+      <p></p>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>CSS ist eingebunden</h2>
+    </hgroup>
+    <article>
+      <img src="images/start-controller-3.png" class="reflect" alt="Description" title="Description">
+    </article>
+  </slide>
+
+  <slide>
+    <article class="flexbox vcenter">
+      <h1>That's all dude ...</h1>
+      <br>
+      <img src="/images/devin_townsend.jpg" height="400px" /><br>
+      <span class="pic">(Devin Townsend)</span>
+    </article>
+  </slide>
+
+  <slide>
+    <article class="flexbox vcenter">
+      <h1>2. Konfiguration</h1>
+      <p>&nbsp;</p>
+      <p>btw ... bis hierhin haben wir nichts konfiguriert!!!</p>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Assets sind per default aktiviert!</h2>
+    </hgroup>
+    <article class="smaller">
+      <p>In config/application.rb</p>
+      <pre class="prettyprint" data-lang="bash">
+require File.expand_path('../boot', __FILE__)
+
+require 'rails/all'
+ ...
+
+module AssetPipelineApp
+  class Application < Rails::Application
+    ...
+
+    # Enable the asset pipeline
+    config.assets.enabled = true
+
+    # Version of your assets, change this if you want to expire all your assets
+    config.assets.version = '1.0'
+  end
+end
+      </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Was wir bisher haben ...</h2>
+    </hgroup>
+    <article>
+      <img src="images/start-controller-3-source.png" class="reflect" alt="Description" title="Description">
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Wo wir hin wollen ...</h2>
+    </hgroup>
+    <article>
+      <img src="images/start-controller-3-source-compiled.png" class="reflect" alt="Description" title="Description">
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Gemfile</h2>
+      <h3>Hier werden die benötigten Rubygems für die Applikation definiert</h3>
+    </hgroup>
+    <article class="smaller">
+      <pre class="prettyprint" data-lang="bash">
+source 'https://rubygems.org'
+
+gem 'rails', '3.2.12'
+gem 'sqlite3'
+gem 'jquery-rails'
+
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
+
+  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+  # gem 'therubyracer', :platforms => :ruby
+
+  gem 'uglifier', '>= 1.0.3'
+  gem 'yui-compressor' # oder closure-compiler
+end
+      </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Rails Konfiguration development vs. production</h2>
+    </hgroup>
+    <article>
+      <p>config/environments/<br>
+        &nbsp;&nbsp;development.rb<br>
+        &nbsp;&nbsp;production.rb
+      </p>
+      <br>
+      <ul>
+        <li>JavaScript compression gems:<br>
+          <ul>
+            <li>closure-compiler</li>
+            <li>uglifier</li>
+            <li>yui-compressor<br>&nbsp;</li>
+          </ul>
+        </li>
+        <li>CSS compression gem:<br>
+          <ul>
+            <li>yui-compressor</li>
+          </ul>
+        </li>
+      </ul>
+      <p></p>
+    </article>
+  </slide>
+
+  <slide>
+    <article>
+      <img src="images/rails-config-dev-prod.png" alt="Description" title="Description">
+    </article>
+  </slide>
+
+  <slide>
+    <article class="flexbox vcenter">
+      <h1>Erm ... WTF?</h1>
+      <br>
+      <img src="/images/ozzy-osbourne.jpg" height="400px" /><br>
+      <span class="pic">(Ozzy Osbourne)</span>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Konfiguration: development vs. production</h2>
+    </hgroup>
+    <article>
+      <table>
+        <tr>
+          <th>Key</th><th>development</th><th>production</th><th>Beschreibung</th>
+        </tr>
+        <tr>
+          <td>config.cache_classes</td><td>false</td><td>true</td><td>Sollen Klassen und Module bei jedem Request erneut geladen werden?</td>
+        </tr>
+        <tr>
+          <td>config.assets.compress</td><td>false</td><td>true</td><td>Kompilierte Assets werden komprimiert oder nicht</td>
+        </tr>
+        <tr>
+          <td>config.assets.debug</td><td>true</td><td>false</td><td>Alle JavaScript werden einzeln geladen oder nicht</td>
+        </tr>
+        <tr>
+          <td>config.assets.compile</td><td>n/a</td><td>false</td><td>Wenn Assest nicht precompiled sind, sollen diese auch nicht live nachträglich geschehen</td>
+        </tr>
+        <tr>
+          <td>config.assets.digest</td><td>n/a</td><td>true</td><td>Namen der Assets werden um MD5-digest der Datei erweitert (Caching FTW!)</td>
+        </tr>
+        <tr>
+          <td>config.assets.js_compressor<br>config.assets.css_compressor</td><td>n/a</td><td>:uglifier<br>:yui</td><td>Welche Libraries sollen für Komprimierung genutzt werden?</td>
+        </tr>
+      </table>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Applikation lokal in production env starten</h2>
+    </hgroup>
+    <article>
+      <br>
+      <ul>
+        <li>rake Task <b>rake assets:precompile</b> ausführen, damit statische Assets erzeugt werden</li>
+        <li>in config/environments/production.rb <b>config.serve_static_assets = true</b> setzen um statische assets in public/assets auszuliefern</li>
+        <li>mit <b>config.assets.prefix</b> (default: public/assets) lässt sich das Verzeichnis bestimmen, in welchem die kompilierten Assets abgelegt werden</li>
+      </ul>
+      <p></p>
+    </article>
+  </slide>
+
+  <slide>
+    <article class="smaller">
+      <h3>Assets kompilieren</h3>
+      <pre class="prettyprint" data-lang="bash">
+$ rake assets:precompile
+      </pre>
+      <pre class="prettyprint" data-lang="bash">
+public/
+├── 404.html
+├── 422.html
+├── 500.html
+├── assets
+│   ├── application-1461ffdf3dfcdf8132665d40eb0ce2e4.css
+│   ├── application-1461ffdf3dfcdf8132665d40eb0ce2e4.css.gz
+│   ├── application-7b039165e5bdd09306cbe38a2a901fa1.js
+│   ├── application-7b039165e5bdd09306cbe38a2a901fa1.js.gz
+│   ├── application.css
+│   ├── application.css.gz
+│   ├── application.js
+│   ├── application.js.gz
+│   ├── jquery.min-6c267bfd2b3f36e6edccb2e584934c1c.map
+│   ├── jquery.min.map
+│   ├── manifest.yml
+│   ├── rails-a3386665c05a2d82f711a4aaa72d247c.png
+│   └── rails.png
+├── favicon.ico
+└── robots.txt
+      </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Applikation starten</h2>
+    </hgroup>
+    <article class="smaller">
+      <pre class="prettyprint" data-lang="bash">
+$ rails s -e production
+=> Booting WEBrick
+=> Rails 3.2.12 application starting in production on http://0.0.0.0:3000
+=> Call with -d to detach
+=> Ctrl-C to shutdown server
+[2013-03-17 20:00:55] INFO  WEBrick 1.3.1
+[2013-03-17 20:00:55] INFO  ruby 1.9.3 (2012-11-10) [x86_64-darwin12.2.0]
+[2013-03-17 20:00:55] INFO  WEBrick::HTTPServer#start: pid=83527 port=3000
+Started GET "/" for 127.0.0.1 at 2013-03-17 20:01:05 +0100
+      </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Ergebnis</h2>
+    </hgroup>
+    <article>
+      <img src="images/start-controller-3-source-compiled.png" class="reflect" alt="Description" title="Description">
+    </article>
+  </slide>
+
+  <slide>
+    <article class="flexbox vcenter">
+      <h1>Holy Shit ... erm Diver!</h1>
+      <br>
+      <img src="/images/dio.jpg" height="400px" /><br>
+      <span class="pic">(Ronnie James Dio - RIP)</span>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Refinement</h2>
+    </hgroup>
+    <article>
+      <br>
+      <ul>
+        <li>Read this! <a href="http://guides.rubyonrails.org/asset_pipeline.html">http://guides.rubyonrails.org/asset_pipeline.html</a><br>&nbsp;</li>
+        <li>And this! <a href="http://guides.rubyonrails.org/configuring.html">http://guides.rubyonrails.org/configuring.html</a><br>&nbsp;</li>
+        <li>Webserver richtig konfigurieren!<br>&nbsp;<br> (<a href="http://guides.rubyonrails.org/asset_pipeline.html">http://guides.rubyonrails.org/asset_pipeline.html - 4.1.1 Server Configuration)</a></li>
+      </ul>
+      <p></p>
+    </article>
+  </slide>
+
+  <slide>
+    <article class="flexbox vcenter">
+      <h1>Rails asset pipeline is awesome ...</h1>
+      <br>
+      <img src="/images/jesse-leach.jpg" height="400px" /><br>
+      <span class="pic">(Jesse Leach - Killswitch Engaged)</span>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <aside class="gdbar right"><img src="images/rails_js_128.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <h2>DANKE!</h2>
+    </article>
+    <p class="auto-fadein" data-config-contact>
+      <!-- populated from slide_config.json -->
+    </p>
+  </slide>
+
+  <slide class="logoslide dark nobackground">
+    <article class="flexbox vcenter">
+      <!-- <span><img src="images/google_developers_logo_white.png"></span> -->
+    </article>
+  </slide>
+
+  <slide class="backdrop"></slide>
+
+</slides>
+</body>
+</html>
