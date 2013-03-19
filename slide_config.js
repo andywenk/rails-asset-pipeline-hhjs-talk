@@ -23,7 +23,7 @@ var SLIDE_CONFIG = {
     company: 'Senior Developer, SinnerSchrader',
     gplus: 'https://plus.google.com/110705229183006710621',
     twitter: '@awenkhh',
-    www: 'http://www.nsm.de',
+    www: 'http://www.nms.de',
     github: 'http://github.com/andywenk'
   }]
 };
